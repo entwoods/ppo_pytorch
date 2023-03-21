@@ -59,6 +59,16 @@ class PPO:
                 writer.add_scalar("Loss/Entropy", training_loss["entropy_loss"], i)
                 writer.add_scalar("Loss/Total", training_loss["total_loss"], i)
                 writer.add_scalar("Learning Rate", self.training_param["lr"], i)
+		writer.add_scalar("Reward", self.envs.get_mean_reward(), i)
+                writer.add_scalar("Advantage", self.envs.get_mean_adv(), i)
+                writer.add_scalar("Value", self.envs.get_mean_value(), i)
+                writer.add_scalar("Entropy", self.envs.get_mean_entropy(), i)
+                writer.add_scalar("Ratio", self.envs.get_mean_ratio(), i)
+                writer.add_scalar("Clip Ratio", self.envs.get_mean_clip_ratio(), i)
+                writer.add_scalar("Value Loss", self.envs.get_mean_value_loss(), i)
+                writer.add_scalar("Clip Value Loss", self.envs.get_mean_clip_value_loss(), i)
+                writer.add_scalar("Grad Norm", self.envs.get_mean_grad_norm(), i)
+                writer.add_scalar("Grad Norm Clip", self.envs.get_mean_grad_norm_clip(), i)
 
         return self.agent.get_action, self.agent.get_value, training_loss
 
