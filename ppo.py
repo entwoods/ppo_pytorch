@@ -77,6 +77,12 @@ if __name__ == "__main__":
     parser.add_argument("--log_dir", type=str, default="logs", help="Directory to save logs")
     args = parser.parse_args()
 
+    ## Initialize Tensorboard
+    log_path = args.log_dir + "/" + args.run_name
+    if not os.path.exists(log_path):
+        os.makedirs(log_path)
+    writer = SummaryWriter(log_path)
+
     ## Initialize the vector environment & agent, wrap in PPO
     envs = utl.EnvController(args.env, args.n_steps, args.num_envs, args.seed, args.video_debug)
     agent = agt.PPOAgent(envs)
